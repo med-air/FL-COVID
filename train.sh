@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+python3 ./fl_covid/bin/train_fed.py --backbone=vgg19_nl --batch-size=6 --steps=1000 --gpu=0 --epochs=30 --config=./fl_covid/anchors4.ini --snapshot-path=../federated_results/fl_covid_model_and_log/ --random-transform  --weights=../deeplesion_model/vgg19_csv_01.h5  csv train_joint.csv mapping.csv --val-annotations=test_joint.csv

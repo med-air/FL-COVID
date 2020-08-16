@@ -11,18 +11,18 @@ For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk).
 ## Installation
 1) We recommend using conda to setup the environment, See the `requirements.yaml` for environment configuration 
 
-If there is no conda installed on your PC, please find the installers from https://www.anaconda.com/products/individual
+    If there is no conda installed on your PC, please find the installers from https://www.anaconda.com/products/individual
 
-If you have already installed conda, please use the following command to setup environment quickly.
-    
+    If you have already installed conda, please use the following command to setup environment quickly.
+
     > conda env create -f environment.yaml
 
-After environment creation, please use the following command to activate your environment
+    After environment creation, please use the following command to activate your environment
     
     > conda activate flcovid
 
-2) Run the script `setup-env.sh` to compile Cython code first.
-
+2) Run the script `setup-env.sh` to compile Cython code first.  
+ 
     > bash setup-env.sh
 
 

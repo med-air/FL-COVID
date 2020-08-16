@@ -24,7 +24,8 @@ For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk).
 2) Run the script `setup-env.sh` to compile Cython code first.  
  
     > bash setup-env.sh
-
+    
+3) Download the data and put it at the same level of folder **'fl_covid'**. Please refer to the File structure at the bottom.
 
 ## Usage   
 ### Train

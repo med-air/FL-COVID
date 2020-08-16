@@ -40,21 +40,41 @@ To choose which site to be validated, please change the `--site`. Options for `-
 You may specify the `--save-path` to change the results saving directory , default folder is named 'output' at the same directory level as the code folder.
 
 Here are the arguments used in the bash script.
-- --batch-size  Size of the training batches
-- --steps   Number of steps per epoch
-- --epochs  Number of epochs to train
-- --gpu  Id of the GPU to use (as reported by nvidia-smi)
-- --snapshot-path  Path to save the snapshots of models and training log during training
-- --model  Path to the model for evaluation
-- --save-path  Path to save the visualization results and statistical intermediate results
-- --save-result ‘1’ for both saving visual and statistical results, '0' for only statistics.
-- --get_predicted_bbox To be used for first time evaluation, saving intermediate results for following statistics.
-- --site Determine which site to be evaluated.
+- --batch-size
+        
+    Size of the training batches
+- --steps 
+
+    Number of steps per epoch
+- --epochs
+    
+    Number of epochs to train
+- --gpu
+    
+    Id of the GPU to use (as reported by nvidia-smi)
+- --snapshot-path  
+
+    Path to save the snapshots of models and training log during training
+- --model  
+
+    Path to the model for evaluation
+- --save-path  
+
+    Path to save the visualization results and statistical intermediate results
+- --save-result 
+
+    ‘1’ for both saving visual and statistical results, '0' for only statistics.
+- --get_predicted_bbox 
+
+    To be used for first time evaluation, saving intermediate results for following statistics.
+- --site 
+    
+    Determine which site to be evaluated.
 
 
 ### Visualize results
-Visual results are saved in 'nii.gz' format in directory 'output/visual_results'
-We recommand using ITK-SNAP (http://www.itksnap.org/pmwiki/pmwiki.php?n=Downloads.SNAP3) to visualize them.
+Visual results are saved in **'nii.gz'** format in directory **'output/visual_results'**
+We recommand using **ITK-SNAP** (http://www.itksnap.org/pmwiki/pmwiki.php?n=Downloads.SNAP3) to visualize them.
 
 ## File structure
 For code and demo data, structures listed below:

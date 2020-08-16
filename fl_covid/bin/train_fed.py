@@ -1,16 +1,17 @@
+import os
+import sys
 import argparse
 import json
-import os
 import random
-import sys
 import warnings
 import time
 
 import collections
 import tensorflow as tf
-print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+print("GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 tf.compat.v1.enable_v2_behavior()
+
 # Allow relative imports when being executed as script.
 if __name__ == "__main__" and __package__ is None:
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -18,8 +19,8 @@ if __name__ == "__main__" and __package__ is None:
 
     __package__ = "fl_covid.bin"
 
-# Change these to absolute imports if you copy this script outside the keras_retinanet package.
-from .. import layers  # noqa: F401
+# Change these to absolute imports if you copy this script outside the fl_covid package.
+from fl_covid import layers  # noqa: F401
 from .. import losses
 from .. import models
 from ..callbacks.eval import Evaluate, Evaluate_separate
@@ -35,9 +36,11 @@ import numpy as np
 
 
 def makedirs(path):
-    # Intended behavior: try to create the directory,
-    # pass if the directory exists already, fails otherwise.
-    # Meant for Python 2.7/3.n compatibility.
+    """
+    Try to create the directory, pass if the directory exists already, fails otherwise.
+    Args
+        path: The directory to create
+    """
     try:
         os.makedirs(path)
     except OSError:
@@ -53,9 +56,7 @@ def model_with_weights(model, weights, skip_mismatch):
         skip_mismatch : If True, skips layers whose shape of weights doesn't match with the model.
     """
     if weights is not None:
-        print("Creating model with weights...")
         model.load_weights(weights, by_name=True, skip_mismatch=skip_mismatch)
-        # model.load_weights(weights, by_name=False, skip_mismatch=False)
     return model
 
 
@@ -139,18 +140,17 @@ def create_callbacks(model, training_model, prediction_model, validation_generat
     if args.evaluation and validation_generator:
         evaluation = Evaluate_separate(prediction_model, validation_generator[:-1], tensorboard_writer=tensorboad_writer,
                               weighted_average=args.weighted_average, max_detections=args.max_detections)
-        evaluation_overall = Evaluate(prediction_model, validation_generator[-1], tensorboard_writer=tensorboad_writer,
-                              weighted_average=args.weighted_average, max_detections=args.max_detections)
+        # evaluation_overall = Evaluate(prediction_model, validation_generator[-1], tensorboard_writer=tensorboad_writer,
+        #                       weighted_average=args.weighted_average, max_detections=args.max_detections)
         callbacks.append(evaluation)
-        callbacks.append(evaluation_overall)
+        # callbacks.append(evaluation_overall)
 
     # save the model
     # if args.snapshots:
     if args.snapshot_path:
         # ensure directory created first; otherwise h5py will error after epoch.
         makedirs(args.snapshot_path)
-        print('saving models to path: ', args.snapshot_path)
-        print('save best only:', args.best_only)
+        print('Saving models to path: ', args.snapshot_path)
         checkpoint = model_checkpoint.ModelCheckpoint(
             training_model,
             os.path.join(args.snapshot_path, '{backbone}_{dataset_type}_{{epoch:02d}}.h5'.format(backbone=args.backbone,
@@ -162,7 +162,6 @@ def create_callbacks(model, training_model, prediction_model, validation_generat
         )
         callbacks.append(checkpoint)
 
-    print('Reduce LR:', args.reduce_lr)
     if args.reduce_lr:
         callbacks.append(reduce_lr.ReduceLROnPlateau(
             training_model,
@@ -280,10 +279,15 @@ def parse_args(args):
     parser = argparse.ArgumentParser(description='Simple training script for training a RetinaNet network.')
     subparsers = parser.add_subparsers(help='Arguments for specific dataset types.', dest='dataset_type_dummy')
 
-    csv_parser = subparsers.add_parser('csv')
-    csv_parser.add_argument('annotations', default='results.csv', help='Path to CSV file containing annotations for training.')
-    csv_parser.add_argument('classes', default='mapping.csv', help='Path to a CSV file containing class label mapping.')
-    csv_parser.add_argument('--val-annotations', default='results.csv', help='Path to CSV file containing annotations for validation (optional).')
+    # csv_parser = subparsers.add_parser('csv')
+    # csv_parser.add_argument('--classes', default='mapping.csv', help='Path to a CSV file containing class label mapping.')
+    # csv_parser.add_argument('--annotations', default='temp.csv', help='Path to CSV file containing annotations for training.')
+    # csv_parser.add_argument('--val-annotations', default='temp.csv', help='Path to CSV file containing annotations for validation (optional).')
+
+    # group_csv_parser = subparsers.add_parser('group_csv')
+    # group_csv_parser.add_argument('annotations', help='Path to CSV file containing annotations for training.')
+    # group_csv_parser.add_argument('classes', help='Path to a CSV file containing class label mapping.')
+    # group_csv_parser.add_argument('--val-annotations', help='Path to CSV file containing annotations for validation (optional).')
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--snapshot', default=None, help='Resume training from a snapshot.')
@@ -307,9 +311,9 @@ def parse_args(args):
     parser.add_argument('--no-snapshots', help='Disable saving snapshots.', dest='snapshots', action='store_false')
     parser.add_argument('--no-evaluation', help='Disable per epoch evaluation.', dest='evaluation', action='store_false')
     parser.add_argument('--freeze-backbone', default=False, help='Freeze training of backbone layers.', action='store_true')
-    parser.add_argument('--random-transform', default=False, help='Randomly transform image and annotations.', action='store_true')
-    parser.add_argument('--image-min-side', help='Rescale the image so the smallest side is min_side.', type=int, default=512)
-    parser.add_argument('--image-max-side', help='Rescale the image if the largest side is larger than max_side.', type=int, default=512)
+    parser.add_argument('--random-transform', default=True, help='Randomly transform image and annotations.', action='store_true')
+    parser.add_argument('--image-min-side', help='Rescale the image so the smallest side is min_side.', type=int, default=800)
+    parser.add_argument('--image-max-side', help='Rescale the image if the largest side is larger than max_side.', type=int, default=1333)
     parser.add_argument('--config', default='./fl_covid/anchors4.ini',
                         help='Path to a configuration parameters .ini file.')
     parser.add_argument('--weighted-average', help='Compute the mAP using the weighted average of precisions among classes.', action='store_true')
@@ -317,6 +321,11 @@ def parse_args(args):
     parser.add_argument('--max-detections', help='Number of detections to consider during evaluation.', type=int, default=100)
     parser.add_argument('--model-config', help='Path to a model configuration.', type=str)
     parser.add_argument('--dataset_type', default='csv', help='Arguments for specific dataset types')
+
+    parser.add_argument('--classes', default='mapping.csv', help='Path to a CSV file containing class label mapping.')
+    parser.add_argument('--annotations', default='temp.csv', help='Path to CSV file containing annotations for training.')
+    parser.add_argument('--val-annotations', default=None, help='Path to CSV file containing annotations for validation (optional).')
+
 
     return check_args(parser.parse_args(args))
 
@@ -326,6 +335,10 @@ def main(args=None, model_config=None):
     if args is None:
         args = sys.argv[1:]
     args = parse_args(args)
+
+    makedirs(args.snapshot_path + './bin')
+    os.system('cp -r ./fl_covid/bin/train_fed.py %s' % (args.snapshot_path + './bin'))
+    os.system('cp train.sh %s' % args.snapshot_path)
 
     # Set empty config
     if model_config is None:
@@ -352,35 +365,35 @@ def main(args=None, model_config=None):
     if args.config:
         args.config = read_config_file(args.config)
 
-    # create the generators
-    anno_base_dir = '/research/dept8/qdou/data/covid/'
+    anno_base_dir = './data/internal'
 
     args.annotations = os.path.join(anno_base_dir, args.annotations)
-    args.classes = os.path.join(anno_base_dir, args.classes)
-    overall_test_annotations = os.path.join(anno_base_dir, args.val_annotations)
+    args.classes = './fl_covid/utils/mapping.csv'
 
-    print('---Server---\ntraining csv {}, validation csv {}'.format(args.annotations, args.val_annotations))
+    # print('---Server---\ntraining csv {}, validation csv {}'.format(args.annotations, args.val_annotations))
 
     # tensorboard writer
     makedirs(args.snapshot_path + '/log')
     tensorboard_writer = tf.summary.create_file_writer(args.snapshot_path + '/log')
 
-    train_data_list = ['train_private_1.csv', 'train_private_2.csv', 'train_private_3.csv']
-    test_data_list = ['test_private_1.csv', 'test_private_2.csv', 'test_private_3.csv']
-    data_path = ['private_1/h5_normalize', 'private_2/h5_normalize', 'private_3/h5_normalize']
+    data_path = ['internal_1/h5_normalize', 'internal_2/h5_normalize', 'internal_3/h5_normalize']
+    train_data_list = ['train_internal_1.csv', 'train_internal_2.csv', 'train_internal_3.csv']
+    # test_data_list = ['eval_internal_1_demo.csv', 'eval_internal_2_demo.csv', 'eval_internal_3_demo.csv']
+
     client_num = 3
 
-    #initialize client dataset and model
+    # initialize client dataset and model
     model_clients = []
     train_data_client = []
     test_data_client = []
-    step_client = [305, 199, 1566]
+    step_client = [args.steps, args.steps, args.steps]
     for i in range(client_num):
         args.annotations = os.path.join(anno_base_dir, data_path[i], train_data_list[i])
-        args.val_annotations = os.path.join(anno_base_dir, data_path[i], test_data_list[i])
-        print('---Client{}---\ntraining csv {}, validation csv {}'.format(i, args.annotations, args.val_annotations))
+        # args.val_annotations = os.path.join(anno_base_dir, data_path[i], test_data_list[i])
+        # print('---Client{}---\ntraining csv {}, validation csv {}'.format(i, args.annotations, args.val_annotations))
+        print('---Client{}---\ntraining csv {}'.format(i, args.annotations))
 
-        train_generator, validation_generator = create_generators(args, backbone.preprocess_image)
+        train_generator, _ = create_generators(args, backbone.preprocess_image)
 
         # create the model and dataset
         if args.snapshot is not None:
@@ -409,8 +422,7 @@ def main(args=None, model_config=None):
         # this lets the generator compute backbone layer shapes using the actual backbone model
         if 'vgg' in args.backbone or 'densenet' in args.backbone:
             train_generator.compute_shapes = make_shapes_callback(model)
-            validation_generator.compute_shapes = train_generator.compute_shapes
-
+            # validation_generator.compute_shapes = train_generator.compute_shapes
 
         dataset = tf.data.Dataset.from_generator(
             generator=train_generator, output_types=(tf.float32, (tf.float32, tf.float32, tf.float32)),
@@ -433,13 +445,11 @@ def main(args=None, model_config=None):
 
         model_clients.append(model)
         train_data_client.append(iterator)
-        test_data_client.append(validation_generator)
+        # test_data_client.append(validation_generator)
 
-    # load overall test set
-    args.val_annotations = overall_test_annotations
-    _, validation_generator = create_generators(args, backbone.preprocess_image)
-    validation_generator.compute_shapes = train_generator.compute_shapes
-    test_data_client.append(validation_generator)
+    # _, validation_generator = create_generators(args, backbone.preprocess_image)
+    # validation_generator.compute_shapes = train_generator.compute_shapes
+    # test_data_client.append(validation_generator)
 
     # create testing model
     server_model, server_training_model,server_prediction_model = create_models(
@@ -458,7 +468,7 @@ def main(args=None, model_config=None):
         server_model,
         server_training_model,
         server_prediction_model,
-        test_data_client,
+        None,
         args,
         tensorboad_writer=tensorboard_writer
     )
@@ -470,7 +480,7 @@ def main(args=None, model_config=None):
         resume_epoch = int(args.weights.rsplit('/', -1)[-1].split('.')[0].rsplit('_', -1)[-1])
     else:
         resume_epoch = 0
-    print('start from epoch:', resume_epoch)
+    print('Start from epoch:', resume_epoch)
 
     # prepare callback
     for callback in callbacks:
@@ -504,11 +514,11 @@ def main(args=None, model_config=None):
                 total_loss[client_index] += float(history.history['loss'][0])
                 classification_loss[client_index] += float(history.history['classification_loss'][0])
                 regression_loss[client_index] += float(history.history['regression_loss'][0])
-                mask_loss[client_index] += float(history.history['mask_loss'][0])
+                # mask_loss[client_index] += float(history.history['mask_loss'][0])
                 dur = time.perf_counter() - start
-                print("\rClient {} Step:[{}/{}] time:{:.2f}s | client average: -loss:{:.4e} -classfication_loss:{:.4e} -regression_loss:{:.4e} -mask_loss:{:.4e}".
-                      format(client_index, (step+1), step_client[client_index], dur, total_loss[client_index]/(step+1), classification_loss[client_index]/(step+1), regression_loss[client_index]/(step+1), mask_loss[client_index]/(step+1)), end="", flush=True)
-
+                print("\rClient {} Step:[{}/{}] time:{:.2f}s | client average: -total loss:{:.4e} -classfication_loss:{:.4e} -regression_loss:{:.4e}".
+                      format(client_index, (step+1), step_client[client_index], dur, total_loss[client_index]/(step+1), classification_loss[client_index]/(step+1), regression_loss[client_index]/(step+1)), end="", flush=True)
+            print()
             # model aggregation
         parameter_clients = []
         new_parameters = []
@@ -516,10 +526,6 @@ def main(args=None, model_config=None):
             parameter_clients.append(model_clients[client_index].get_weights())
 
         client_weight = [0.15, 0.10, 0.75]
-        # client_weight = [0.15, 0.15, 0.70]
-        # client_weight = [0.20, 0.15, 0.65]
-        # client_weight = [0.20, 0.20, 0.60]
-        # client_weight = [0.17, 0.09, 0.74]
         for param_i in range(len(parameter_clients[0])):
             new_parameter = 0
             for client_i in range(client_num):

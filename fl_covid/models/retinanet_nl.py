@@ -322,7 +322,6 @@ def retinanet(
         [regression, classification, other[0], other[1], ...]
         ```
     """
-    print("#### Using RetinaNet with non-local blocks on (P3 P4 P5 P6) ####")
     if num_anchors is None:
         num_anchors = AnchorParameters.default.num_anchors()
 

@@ -205,8 +205,10 @@ class CSVGenerator(Generator):
         try:
             return np.expand_dims(np.asarray(Image.open(path)), axis=2)
         except FileNotFoundError:
-            path = '/research/dept8/qdou/mrjiang/COVIDDataSet/109.png'
-            return np.expand_dims(np.asarray(Image.open(path)), axis=2)
+            # path = '/research/dept5/mrjiang/Dataset/COVIDDataSet/109.png'
+            # f = np.expand_dims(np.asarray(Image.open(path)), axis=2)
+            # print(f.shape)
+            return np.random.randn(512,512,1)
 
     def load_annotations(self, image_index):
         """ Load annotations for an image_index.

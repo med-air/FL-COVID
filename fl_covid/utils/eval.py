@@ -54,7 +54,7 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=100, 
     """
     all_detections = [[None for i in range(generator.num_classes()) if generator.has_label(i)] for j in range(generator.size())]
 
-    for i in tqdm(range(generator.size()), desc='Running network: '):
+    for i in tqdm(range(generator.size()), desc='Evaluating...'):
         raw_image    = generator.load_image(i)
         image        = generator.preprocess_image(raw_image.copy())
         image, scale = generator.resize_image(image)
@@ -70,9 +70,13 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=100, 
 
         # select indices which have a score above the threshold
         indices = np.where(scores[0, :] > score_threshold)[0]
-        scores = scores.numpy()
-        boxes = boxes.numpy()
-        labels = labels.numpy()
+        if type(scores) is not np.ndarray:
+            scores = scores.numpy()
+        if type(boxes) is not np.ndarray:
+            boxes = boxes.numpy()
+        if type(labels) is not np.ndarray:
+            labels = labels.numpy()
+
         scores = scores[0][indices]
 
         # find the order with which to sort the scores
@@ -112,7 +116,8 @@ def _get_annotations(generator):
         A list of lists containing the annotations for each image in the generator.
     """
     all_annotations = [[None for i in range(generator.num_classes())] for j in range(generator.size())]
-    for i in tqdm(range(generator.size()), desc='Parsing annotations: '):
+    # for i in tqdm(range(generator.size()), desc='Parsing annotations: '):
+    for i in range(generator.size()):
         # load the annotations
         annotations = generator.load_annotations(i)
 
@@ -138,7 +143,8 @@ def _get_annotations_and_img_path(generator):
     all_annotations = [[None for i in range(generator.num_classes())] for j in range(generator.size())]
     all_annotations_img_path = [None for i in range(generator.size())]
 
-    for i in tqdm(range(generator.size()), desc='Parsing annotations: '):
+    # for i in tqdm(range(generator.size()), desc='Parsing annotations: '):
+    for i in range(generator.size()):
         # load the annotations
         annotations = generator.load_annotations(i)
         img_path = generator.image_path(i)

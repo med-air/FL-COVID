@@ -314,7 +314,6 @@ def retinanet(
         [regression, classification, other[0], other[1], ...]
         ```
     """
-    print("#### Using RetinaNet ####")
     if num_anchors is None:
         num_anchors = AnchorParameters.default.num_anchors()
 

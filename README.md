@@ -13,7 +13,7 @@ For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk).
 
     If there is no conda installed on your PC, please find the installers from https://www.anaconda.com/products/individual
 
-    If you have already installed conda, please use the following command to setup environment quickly.
+    If you have already installed conda, please change the directory to the same level as `environment.yaml` and use the following command to setup environment quickly.
 
     > conda env create -f environment.yaml
 

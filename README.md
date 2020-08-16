@@ -25,7 +25,7 @@ For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk).
  
     > bash setup-env.sh
     
-3) Download the data and put it at the same level of folder **'fl_covid'**. Please refer to the File structure at the bottom.
+3) Download the data(https://drive.google.com/file/d/1ZdGtxOHUgTwBXgBQFf5W4_Jiu7_QGMTY/view?usp=sharing) and put it at the same level of folder **'fl_covid'**. Please refer to the File structure at the bottom.
 
 ## Usage   
 ### Train

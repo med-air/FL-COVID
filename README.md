@@ -29,18 +29,24 @@ For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk).
 
 ## Usage   
 ### Train
-Please run the `train.sh` to start traning.
-You may specify `--gpu` to determine which one to use, default is '0'.
+Please run the `train.sh` to start traning
 
+> bash train.sh
+
+You may specify `--gpu` to determine which GPU card on your machine to use, default is '0'.
 
 ### Test
-Please run the `test.sh` to start testing. 
+Please run the `test.sh` to start testing
 
-To choose which site to be validated, please change the `--site`. Options for `--site` are [ internal | external1 | external2 | external3 ]
+> bash test.sh
+
+We provide demo for all our four validation sites.
+
+To choose which site to test, please change the `--site` from options in [ internal | external1 | external2 | external3 ]
 
 You may specify the `--save-path` to change the results saving directory , default folder is named 'output' at the same directory level as the code folder.
 
-Here are the arguments used in the bash script.
+The followings are other arguments used in the bash script.
 - --batch-size
         
     Size of the training batches

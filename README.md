@@ -3,9 +3,12 @@
 
 Qi Dou, Tiffany So, Meirui Jiang, Quande Liu, VARUT Vardhanabhuti, Georgios Kaissis, Zeju Li, Weixin Si, Heather Lee, Kevin Yu, Zuxin Feng, Li Dong, Egon Burian, Friederike Jungmann, Rickmer Braren, Prof. Marcus Makowski, Bernhard Kainz, Daniel Rueckert, Ben Glocker, Simon Yu, Pheng Ann Heng
 
-License at: `LICENSE`
-
 For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk). 
+
+## Source code
+The provided demo data and source code enables training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT.
+
+A model trained on a set of 60 annotated CT scans obtained from multiple clinical sites was also availble. This model has been validated on an internal set of 15 CT scans, and on three external set of 55 CT scans in total.
 
 
 ## Installation
@@ -27,20 +30,17 @@ For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk).
     
 3) Download the data(https://drive.google.com/file/d/1ZdGtxOHUgTwBXgBQFf5W4_Jiu7_QGMTY/view?usp=sharing) and put it at the same level of folder **'fl_covid'**. Please refer to the File structure at the bottom.
 
-## Usage   
+## Usage with examples
 ### Train
-Please run the `train.sh` to start traning.
-You may specify `--gpu` to determine which one to use, default is '0'.
-
-
-### Test
-Please run the `test.sh` to start testing. 
-
-To choose which site to be validated, please change the `--site`. Options for `--site` are [ internal | external1 | external2 | external3 ]
-
-You may specify the `--save-path` to change the results saving directory , default folder is named 'output' at the same directory level as the code folder.
-
-Here are the arguments used in the bash script.
+To start traning, please run the `train.sh`.
+```
+cd FL-COVID
+bash train.sh
+```
+You can modify and run your own command according to the template in `train.sh`
+```
+python3 ./fl_covid/bin/train_fed.py --batch-size=6 --steps=100 --gpu=0 --epochs=30 --snapshot-path=../fl_covid_model_and_log/
+```
 - --batch-size
         
     Size of the training batches
@@ -56,6 +56,25 @@ Here are the arguments used in the bash script.
 - --snapshot-path  
 
     Path to save the snapshots of models and training log during training
+
+### Test
+To run inference with our model, please run the `test.sh`. Inference will be ran on external site1 by default.
+```
+cd FL-COVID
+bash test.sh
+```
+
+To choose which site to be validated, please change the `--site` in shell script. Options please refer to the below explanation .
+
+You may specify the `--save-path` to change the results saving directory , default folder is named 'output' at the same directory level as the code folder.
+
+```
+# Run inference and saving the visual and statistical results
+python3 ./fl_covid/bin/evaluate_overall_patient_wise.py --model=./model/model.h5  --gpu=0 --save-path=./output/ --save-result=1  --get_predicted_bbox --site=external1
+
+# Print the statistical analysis
+python3 ./fl_covid/bin/evaluate_overall_patient_wise.py --model=./model/model.h5  --gpu=0 --save-path=./output/ --save-result=0 --verbose --site=external1
+```
 - --model  
 
     Path to the model for evaluation
@@ -70,17 +89,20 @@ Here are the arguments used in the bash script.
     To be used for first time evaluation, saving intermediate results for following statistics.
 - --site 
     
-    Determine which site to be evaluated.
+    Determine which site to be evaluated. Options are [ internal | external1 | external2 | external3 ]
 
 
-### Visualize results
-Visual results are saved in **'nii.gz'** format in directory **'output/visual_results'**
-We recommand using **ITK-SNAP** (http://www.itksnap.org/pmwiki/pmwiki.php?n=Downloads.SNAP3) to visualize them.
+### Input and Output files
+The system take input from csv files that saving the data information, each line represents a scan image with label and unique path.
+
+Outputs are statistical results saved in npy format and visual results saved in **nii.gz** format under the directory **FL-COVID/output**
+
+For visualizing the **nii.gz** results, we recommand using **ITK-SNAP** (http://www.itksnap.org/pmwiki/pmwiki.php?n=Downloads.SNAP3) to visualize them.
 
 ## File structure
 For code and demo data, structures listed below:
 
-    |--project  
+    |--FL-COVID  
         |--fl_covid (source code folder)  
         |--data (demo date folder)  
             |--internal  

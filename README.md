@@ -42,7 +42,7 @@ Please run the `test.sh` to start testing
 
 We provide demo for all our four validation sites.
 
-To choose which site to test, please change the `--site` from options in [ internal | external1 | external2 | external3 ]
+To choose which site to test, please change `--site` from options in [ internal | external1 | external2 | external3 ]
 
 You may specify the `--save-path` to change the results saving directory , default folder is named 'output' at the same directory level as the code folder.
 

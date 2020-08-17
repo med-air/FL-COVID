@@ -58,13 +58,13 @@ python3 ./fl_covid/bin/train_fed.py --batch-size=6 --steps=100 --gpu=0 --epochs=
     Path to save the snapshots of models and training log during training
 
 ### Test
-To run inference with our model, please run the `test.sh`. Inference will be ran on external site1 by default.
+To run inference with our model, please run `test.sh`. Inference will be ran on external site1 by default.
 ```
 cd FL-COVID
 bash test.sh
 ```
 
-To choose which site to be validated, please change the `--site` in shell script. Options please refer to the below explanation .
+To choose which site to be validated, please change `--site` in shell script. Options please refer to the below explanation .
 
 You may specify the `--save-path` to change the results saving directory , default folder is named 'output' at the same directory level as the code folder.
 

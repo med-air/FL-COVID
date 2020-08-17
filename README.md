@@ -1,14 +1,13 @@
 # FL-COVID-19
-"Federated deep learning for detecting COVID-19 lung abnormalities in CT: A privacy-preserving multinational validation study" by
+Implementation of our manuscript of **[Federated deep learning for detecting COVID-19 lung abnormalities in CT: A privacy-preserving multinational validation study]()** 
 
-Qi Dou, Tiffany So, Meirui Jiang, Quande Liu, VARUT Vardhanabhuti, Georgios Kaissis, Zeju Li, Weixin Si, Heather Lee, Kevin Yu, Zuxin Feng, Li Dong, Egon Burian, Friederike Jungmann, Rickmer Braren, Prof. Marcus Makowski, Bernhard Kainz, Daniel Rueckert, Ben Glocker*, Simon Yu*, Pheng Ann Heng*
+by Qi Dou, Tiffany So, Meirui Jiang, Quande Liu, VARUT Vardhanabhuti, Georgios Kaissis, Zeju Li, Weixin Si, Heather Lee, Kevin Yu, Zuxin Feng, Li Dong, Egon Burian, Friederike Jungmann, Rickmer Braren, Prof. Marcus Makowski, Bernhard Kainz, Daniel Rueckert, Ben Glocker*, Simon Yu*, Pheng Ann Heng*
 
 For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk). 
 
 ## Source code
-The provided demo data and source code enables training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT.
-
-A model trained on a set of 60 annotated CT scans obtained from multiple clinical sites was also availble. This model has been validated on an internal set of 15 CT scans, and on three external set of 55 CT scans in total. Our pretrained model and demo data are available at (https://drive.google.com/drive/folders/1GVJqLzbjRCeSu4tHEzO7D2HvyzZvHJRR?usp=sharing).
+The source code enables both training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT.
+Our pretrained model and demo data are available at [here](https://drive.google.com/drive/folders/1GVJqLzbjRCeSu4tHEzO7D2HvyzZvHJRR?usp=sharing).
 
 
 ## Installation

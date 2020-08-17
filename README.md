@@ -8,7 +8,7 @@ For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk).
 ## Source code
 The provided demo data and source code enables training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT.
 
-A model trained on a set of 60 annotated CT scans obtained from multiple clinical sites was also availble. This model has been validated on an internal set of 15 CT scans, and on three external set of 55 CT scans in total.
+A model trained on a set of 60 annotated CT scans obtained from multiple clinical sites was also availble. This model has been validated on an internal set of 15 CT scans, and on three external set of 55 CT scans in total. Our pretrained model and demo data are available at (https://drive.google.com/drive/folders/1GVJqLzbjRCeSu4tHEzO7D2HvyzZvHJRR?usp=sharing).
 
 
 ## Installation
@@ -28,7 +28,7 @@ A model trained on a set of 60 annotated CT scans obtained from multiple clinica
  
     > bash setup-env.sh
     
-3) Download the data(https://drive.google.com/file/d/1ZdGtxOHUgTwBXgBQFf5W4_Jiu7_QGMTY/view?usp=sharing) and put it at the same level of folder **'fl_covid'**. Please refer to the File structure at the bottom.
+3) Put the download demo data and model at the same level of folder **'fl_covid'**. Please refer to the File structure at the bottom.
 
 ## Usage with examples
 ### Train
@@ -125,6 +125,8 @@ For code and demo data, structures listed below:
                 ...  
             |--external3  
                 ...  
+        |--model (pre-trained model folder)
+            model.h5
         |--LICENSE  
         |--README.md  
         |--setup-env.sh  

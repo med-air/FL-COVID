@@ -32,7 +32,6 @@ A model trained on a set of 60 annotated CT scans obtained from multiple clinica
 
 ## Usage with examples
 ### Train
-<<<<<<< HEAD
 To start traning, please run the `train.sh`.
 ```
 cd FL-COVID
@@ -42,26 +41,6 @@ You can modify and run your own command according to the template in `train.sh`
 ```
 python3 ./fl_covid/bin/train_fed.py --batch-size=6 --steps=100 --gpu=0 --epochs=30 --snapshot-path=../fl_covid_model_and_log/
 ```
-=======
-Please run the `train.sh` to start traning
-
-> bash train.sh
-
-You may specify `--gpu` to determine which GPU card on your machine to use, default is '0'.
-
-### Test
-Please run the `test.sh` to start testing
-
-> bash test.sh
-
-We provide demo for all our four validation sites.
-
-To choose which site to test, please change `--site` from options in [ internal | external1 | external2 | external3 ]
-
-You may specify the `--save-path` to change the results saving directory , default folder is named 'output' at the same directory level as the code folder.
-
-The followings are other arguments used in the bash script.
->>>>>>> 5e001e7596891703a774804a1efc899977ddb449
 - --batch-size
         
     Size of the training batches

@@ -6,7 +6,7 @@ Qi Dou, Tiffany So, Meirui Jiang, Quande Liu, VARUT Vardhanabhuti, Georgios Kais
 For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk). 
 
 ## Source code
-The source code enables training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT.
+The source code enables both training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT.
 Our pretrained model and demo data are available at [here](https://drive.google.com/drive/folders/1GVJqLzbjRCeSu4tHEzO7D2HvyzZvHJRR?usp=sharing).
 
 

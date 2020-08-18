@@ -27,7 +27,7 @@ Our pretrained model and demo data are available at [here](https://drive.google.
  
     > bash setup-env.sh
     
-3) Put the download demo data and model at the same level of folder **'fl_covid'**. Please refer to the File structure at the bottom.
+3) Put the download demo data and model at the same level of folder **'fl_covid'**. Make sure put the data folder and model folder in right place, please refer to the **File structure** at the bottom.
 
 ## Usage with examples
 ### Train

@@ -8,7 +8,7 @@ For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk).
 \# joint senior authors.
 
 ## Source code
-The source code enables both training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT.
+The source code enables both training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT. We use improving RetinaNet[1] as our backbone.
 Our pretrained model and demo data are available at [here](https://drive.google.com/drive/folders/1GVJqLzbjRCeSu4tHEzO7D2HvyzZvHJRR?usp=sharing).
 
 
@@ -133,3 +133,5 @@ For code and demo data, structures listed below:
         |--setup-env.sh  
         |--train.sh  
         |--test.sh  
+## References
+[1] Zlocha, Martin, Qi Dou, and Ben Glocker. "Improving RetinaNet for CT lesion detection with dense masks from weak RECIST labels." In International Conference on Medical Image Computing and Computer-Assisted Intervention, pp. 402-410. Springer, Cham, 2019.

@@ -4,6 +4,7 @@ Implementation of our manuscript of **[Federated deep learning for detecting COV
 by Qi Dou, Tiffany So, Meirui Jiang, Quande Liu, VARUT Vardhanabhuti, Georgios Kaissis, Zeju Li, Weixin Si, Heather Lee, Kevin Yu, Zuxin Feng, Li Dong, Egon Burian, Friederike Jungmann, Rickmer Braren, Prof. Marcus Makowski, Bernhard Kainz, Daniel Rueckert, Ben Glocker#, Simon Yu#, Pheng Ann Heng#
 
 For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk). 
+
 \# joint senior authors.
 
 ## Source code

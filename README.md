@@ -1,14 +1,14 @@
 # FL-COVID-19
 Implementation of our manuscript of **[Federated deep learning for detecting COVID-19 lung abnormalities in CT: A privacy-preserving multinational validation study]()** 
 
-by Qi Dou, Tiffany So, Meirui Jiang, Quande Liu, VARUT Vardhanabhuti, Georgios Kaissis, Zeju Li, Weixin Si, Heather Lee, Kevin Yu, Zuxin Feng, Li Dong, Egon Burian, Friederike Jungmann, Rickmer Braren, Prof. Marcus Makowski, Bernhard Kainz, Daniel Rueckert, Ben Glocker#, Simon Yu#, Pheng Ann Heng#
+by Qi Dou, Tiffany So, Meirui Jiang, Quande Liu, VARUT Vardhanabhuti, Georgios Kaissis, Zeju Li, Weixin Si, Heather Lee, Kevin Yu, Zuxin Feng, Li Dong, Egon Burian, Friederike Jungmann, Rickmer Braren, Marcus Makowski, Bernhard Kainz, Daniel Rueckert, Ben Glocker#, Simon Yu#, Pheng Ann Heng#
 
 For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk). 
 
 \# joint senior authors.
 
 ## Source code
-The source code enables both training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT. We use improving RetinaNet[1] as our backbone.
+The source code enables both training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT. We use improving RetinaNet [1] as our backbone.
 Our pretrained model and demo data are available at [here](https://drive.google.com/drive/folders/1GVJqLzbjRCeSu4tHEzO7D2HvyzZvHJRR?usp=sharing).
 
 

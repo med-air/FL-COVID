@@ -5,7 +5,6 @@ by Qi Dou, Tiffany So, Meirui Jiang, Quande Liu, VARUT Vardhanabhuti, Georgios K
 
 For any inquiry, please contact Dr. Qi Dou (qdou@cse.cuhk.edu.hk). 
 
-\# joint senior authors.
 
 ## Source code
 The source code enables both training and testing of our federated deep learning method for abnormalities detection in COVID-19 lung CT. We use improving RetinaNet [1] as our backbone.

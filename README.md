@@ -1,5 +1,5 @@
 # FL-COVID-19
-Implementation of our manuscript of **[Federated deep learning for detecting COVID-19 lung abnormalities in CT: A privacy-preserving multinational validation study]()** 
+Implementation of our manuscript of **[Federated deep learning for detecting COVID-19 lung abnormalities in CT: A privacy-preserving multinational validation study](https://www.nature.com/articles/s41746-021-00431-6)** 
 
 by Qi Dou#, Tiffany Y So, Meirui Jiang, Quande Liu, VARUT Vardhanabhuti, Georgios Kaissis, Zeju Li, Weixin Si, Heather Lee, Kevin Yu, Zuxin Feng, Li Dong, Egon Burian, Friederike Jungmann, Rickmer Braren, Marcus Makowski, Bernhard Kainz, Daniel Rueckert, Ben Glocker#, Simon CH Yu#, Pheng Ann Heng#
 
